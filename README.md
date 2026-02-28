@@ -1,7 +1,9 @@
 # Django TODO App
 
 A simple TODO application built with **Django** to manage tasks. Users can create, update, and delete tasks easily.
+## Screenshot of TODO App
 
+![TODO App Screenshot](https://github.com/Ri-n-jpg/Django-TODO_APP/blob/main/Screenshot%202026-03-01%20013821.png?raw=true)
 ---
 
 ## Features
