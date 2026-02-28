@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign-Up</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% block content %}
+<h2> Sign Up</h2>
+<form method="POST">{% csrf_token %}
+  Username: <input type="text" name="fnm"><br>
+  Email: <input type="email" name="emailid"><br>
+  Password: <input type="password" name="pwd"><br>
+  <button type="submit">Sign Up</button>
+</form>
+{% endblock %}
+</body>
+</html>

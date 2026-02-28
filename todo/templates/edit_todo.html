@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit Todo</h2>
+<form method="POST">{% csrf_token %}
+  <input type="text" name="title" value="{{ todo_obj.title }}">
+  <button type="submit">Save</button>
+</form>
+<a href="{% url 'todopage' %}">Cancel</a>
+{% endblock %}

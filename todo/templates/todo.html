@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Your Todos</h2>
+
+<!-- Add new todo -->
+<form method="POST" id="addForm">
+  {% csrf_token %}
+  <input type="text" name="title" placeholder="Add todo">
+  <button type="submit" name="add_todo">Add</button>
+</form>
+
+<ul>
+{% for obj in res %}
+  <li id="todo-{{ obj.srno }}">
+    <span class="todo-title">{{ obj.title }}</span>
+
+    <!-- Hidden edit form -->
+    <form method="POST" class="edit-form" style="display:none;">
+      {% csrf_token %}
+      <input type="hidden" name="srno" value="{{ obj.srno }}">
+      <input type="text" name="title" value="{{ obj.title }}">
+      <button type="submit" name="edit_todo">Save</button>
+      <button type="button" class="cancel-btn">Cancel</button>
+    </form>
+
+    <button class="edit-btn">Edit</button>
+    <a href="{% url 'delete_todo' obj.srno %}" style="color:red; margin-left:10px;">Delete</a>
+  </li>
+{% empty %}
+  <li>No todos yet!</li>
+{% endfor %}
+</ul>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  document.querySelectorAll(".edit-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      let li = btn.closest("li");
+      li.querySelector(".edit-form").style.display = "inline-block";
+      li.querySelector(".todo-title").style.display = "none";
+      btn.style.display = "none";
+    });
+  });
+
+  document.querySelectorAll(".cancel-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      let li = btn.closest("li");
+      li.querySelector(".edit-form").style.display = "none";
+      li.querySelector(".todo-title").style.display = "inline";
+      li.querySelector(".edit-btn").style.display = "inline";
+    });
+  });
+});
+</script>
+{% endblock %}
