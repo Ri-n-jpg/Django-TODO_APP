@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
 from pathlib import Path
 import os
 import dj_database_url
@@ -18,9 +17,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # 🔐 SECURITY
-SECRET_KEY = 'django-insecure-j)u@)^l@%aivdp)@j6o=azx+@^)zo4p_b1q1h@h2#xtx$-@5g+'
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-j)u@)^l@%aivdp)@j6o=azx+@^)zo4p_b1q1h@h2#xtx$-@5g+'
+)
 
-# 🚀 PRODUCTION MODE
 DEBUG = False
 
 ALLOWED_HOSTS = [
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
 # ⚙️ MIDDLEWARE
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # important
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -78,7 +79,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'todo_project.wsgi.application'
 
 
-# 🗄 DATABASE (POSTGRES + SQLITE fallback)
+# 🗄 DATABASE
 DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
@@ -110,6 +111,6 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-# 🖼 MEDIA FILES (optional)
+# 🖼 MEDIA FILES
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
